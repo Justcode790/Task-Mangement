@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/tm",
+  // baseURL: "http://localhost:8080/tm",
+  baseURL: "https://taskmangement-nine.vercel.app/tm",
   // withCredentials: true, // uncomment if you rely on cookies
   headers: {
     "Content-Type": "application/json"

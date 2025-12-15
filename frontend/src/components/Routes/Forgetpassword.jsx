@@ -20,7 +20,7 @@ function Forgetpassword() {
   return (
     <div className="login-container">
       
-      <div className="form-panel">
+      {/* <div className="form-panel"> */}
         <div className="login-box">
           <h1>Creditendials retrival</h1>
           <form onSubmit={handleSubmit} className="form">
@@ -39,10 +39,10 @@ function Forgetpassword() {
             <Link to="/">Login</Link>
           </div>
         </div>
-      </div>
-      <div className="image-panel">
+      {/* </div> */}
+      {/* <div className="image-panel">
         <img src="/employeelogin.png" alt="Login Illustration" />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -9,7 +9,7 @@
 
   /* Background settings */
   background: linear-gradient(135deg, #003b88, #006eff);
-  background-image: url("./adminloginbg.png"), linear-gradient(135deg, #003b88, #006eff);
+  background-image: url("https://res.cloudinary.com/debc5aznw/image/upload/v1765787610/adminloginbg_ctcrdm.png"), linear-gradient(135deg, #003b88, #006eff);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -8,6 +8,7 @@ const User = require("./models/user");
 const Employee = require("./models/employee");
 const AuthRoute = require("./routes/auth");
 const {isLoggedIn,verifyJWT} = require("./middleware");
+
 // const {isLoggedIn,verifyJWT} = require("./middleware");
 
 
@@ -86,21 +87,41 @@ app.get("/tm/selectEmployee",async(req,res)=>{
 
 
 
-app.get("/tm/admin/dashboard-stats", async (req, res) => {
+app.get("/tm/admin/dashboard-stats", verifyJWT, async (req, res) => {
   try {
-    const totalProjects = (await Task.find({})).length;
-    const totalUsers = (await Employee.find({})).length;
-    const pendingTasks = (await Task.find({ status: "active" })).length;
-    console.log("from app.js dashboard stats: ",totalProjects,totalUsers,pendingTasks);
-    res.json({
+    const adminId = req.user.id;
+
+    const totalProjects = await Task.countDocuments({
+      createdBy: adminId,
+    });
+
+    const totalUsers = await Employee.countDocuments({
+      createdBy: adminId,
+    });
+
+    const pendingTasks = await Task.countDocuments({
+      createdBy: adminId,
+      status: "active",
+    });
+
+    console.log(
+      "dashboard stats:",
       totalProjects,
       totalUsers,
       pendingTasks
+    );
+
+    res.json({
+      totalProjects,
+      totalUsers,
+      pendingTasks,
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 app.post("/tm/task",verifyJWT,async (req,res)=>{

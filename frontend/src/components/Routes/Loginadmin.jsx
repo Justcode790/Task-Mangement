@@ -13,6 +13,7 @@ function Loginadmin() {
 
   const navigate = useNavigate();
   const { setUser, setToken } = useUser(); 
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +21,7 @@ function Loginadmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await api.post("/auth/login", formData);
@@ -42,6 +44,8 @@ function Loginadmin() {
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       alert("Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,6 +63,7 @@ function Loginadmin() {
             value={formData.email}
             onChange={handleChange}
             required
+            disabled={loading}
           />
 
           <label>Password</label>
@@ -69,14 +74,19 @@ function Loginadmin() {
             value={formData.password}
             onChange={handleChange}
             required
+            disabled={loading}
           />
 
           <Link to="/forgot-password-admin" className="forgot-link">
             Forgot Password?
           </Link>
 
-          <button type="submit" className="login-btn">
-            Sign In
+          <button
+            type="submit"
+            className="login-btn"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 

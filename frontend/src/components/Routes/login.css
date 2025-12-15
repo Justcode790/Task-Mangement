@@ -4,6 +4,13 @@
   width: 100vw;
   justify-content: center;
   align-items: center;
+ 
+
+  background: linear-gradient(135deg, #003b88, #898c8f);
+  background-image: url("https://res.cloudinary.com/debc5aznw/image/upload/v1765788211/employeeportal_hfflz3.png"), linear-gradient(135deg, #003b88, #006eff);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .image-panel {
@@ -13,6 +20,7 @@
   justify-content: center;
   align-items: center;
   /* padding: 40px; */
+   border-radius: 10px;
   overflow: hidden;
 }
 
@@ -26,7 +34,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+ border-radius: 10px;
   background: #ffffff;
   padding: 20px;
 }
