@@ -1,0 +1,97 @@
+.create-task-container {
+  width: 700px;
+  margin: 40px auto;
+  /* background: #fff; */
+  border-radius: 12px;
+  border: 1px solid black;
+  /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); */
+  padding: 40px 50px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.create-task-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.create-task-title {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.create-task-subtitle {
+  color: #777;
+  font-size: 0.95rem;
+}
+
+.create-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 95%;
+  padding: 10px 0px 10px 38px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+/* .form-group select{
+  width: 90%;
+} */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* gap: 10px; */
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon .icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #007bff, #0056d8);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #0056d8, #003ea8);
+  transform: translateY(-2px);
+}

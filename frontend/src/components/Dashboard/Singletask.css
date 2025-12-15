@@ -1,0 +1,112 @@
+.task-detail-container {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #e8f0ff, #f8f9fa);
+  min-height: 90vh;
+}
+
+.task-card-expanded {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  transition: all 0.3s ease-in-out;
+  border-left: 6px solid #007bff;
+}
+
+.task-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+}
+
+.task-desc {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.task-status {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.status-new {
+  background-color: #007bff1a;
+  color: #007bff;
+}
+
+.status-active {
+  background-color: #ffc1071a;
+  color: #ff9800;
+}
+
+.status-completed {
+  background-color: #28a7451a;
+  color: #28a745;
+}
+
+.status-rejected {
+  background-color: #dc35451a;
+  color: #dc3545;
+}
+
+.updateBtn,
+.deleteBtn {
+  margin-top: 25px;
+  margin-right: 15px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.updateBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+.updateBtn:disabled {
+  background-color: #007bff80;
+  cursor: not-allowed;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteBtn:disabled {
+  background-color: #dc354580;
+  cursor: not-allowed;
+}
+
+.updateBtn a,
+.deleteBtn a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.no-task-message {
+  font-size: 20px;
+  color: #666;
+  text-align: center;
+}
+.status-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0px;
+}

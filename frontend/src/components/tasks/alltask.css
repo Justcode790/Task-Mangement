@@ -1,0 +1,134 @@
+.alltask-container {
+  background-color: #f9fafb;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #1e40af;
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 9px;
+  color: #9ca3af;
+}
+
+.search-input {
+  width: 95%;
+  padding: 0.5rem 1rem 0.5rem 2.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Table */
+.table-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.task-table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #6b7280;
+}
+
+.actions svg:hover {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #9ca3af;
+}
+
+
+/* .icon {
+  cursor: pointer;
+}
+
+.icon.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+} */

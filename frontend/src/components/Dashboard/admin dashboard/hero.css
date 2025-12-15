@@ -1,0 +1,53 @@
+.snapshot-container {
+  background-color: #f9fafb;
+  padding:8px 12px;
+  border-radius: 10px;
+  width: 98%;
+  margin:20px 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.snapshot-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #111827;
+}
+
+.snapshot-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.snapshot-card {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 10px 5px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.snapshot-card:hover {
+  transform: translateY(-4px);
+}
+
+.icon {
+  margin-bottom: 10px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-top: 5px;
+}

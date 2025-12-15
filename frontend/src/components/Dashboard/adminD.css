@@ -1,0 +1,110 @@
+/* Keep your layout unchanged */
+.adminDashboardView {
+  position: relative;
+  top: 0;
+  left: 19vw;
+  width: 77vw;
+  min-height: 100vh;
+  padding: 10px 30px;
+  background: linear-gradient(to right, #f5f7fa, #e2ecf3);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+/* Container holding cards */
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Task Card Styling */
+.task-card {
+  background: #fff;
+  border-radius: 18px;
+  width: 320px;
+  padding: 20px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+  cursor: pointer;
+  border-left: 6px solid transparent;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Header: Title + Status */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  text-transform: capitalize;
+  color: white;
+  font-weight: 500;
+}
+
+/* Description */
+.task-desc {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin: 8px 0;
+}
+
+/* Footer: Assigned to */
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.assigned-label {
+  color: #6b7280;
+}
+
+.assigned-name {
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* Status Colors */
+.status-new .status-badge {
+  background-color: #3b82f6;
+}
+.status-active .status-badge {
+  background-color: #f59e0b;
+}
+.status-completed .status-badge {
+  background-color: #10b981;
+}
+.status-rejected .status-badge {
+  background-color: #ef4444;
+}
