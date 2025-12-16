@@ -11,6 +11,8 @@ function LoginEmployee() {
     role: "employee",
   });
 
+  const [loading, setLoading] = useState(false); // ✅ loading state
+
   const navigate = useNavigate();
   const { setUser, setToken } = useUser();
 
@@ -22,23 +24,23 @@ function LoginEmployee() {
     e.preventDefault();
 
     localStorage.clear();
+    setLoading(true); // ✅ start loading
+
     try {
       const res = await api.post("/auth/login", formData);
       const { token, user } = res.data;
 
-      // localStorage.setItem("token", token);
-      // localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
       setToken(token);
 
-      // Clear form
       setFormData({ email: "", password: "" });
 
-      // Navigate based on role
-        navigate("/employee");
+      navigate("/employee");
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false); // ✅ stop loading
     }
   };
 
@@ -47,8 +49,9 @@ function LoginEmployee() {
       <div className="form-panel">
         <div className="login-box">
           <h1>Employee Login</h1>
+
           <form onSubmit={handleSubmit} className="form">
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
             <input
               type="email"
               placeholder="employee@gmail.com"
@@ -56,9 +59,10 @@ function LoginEmployee() {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={loading}
             />
 
-            <label htmlFor="password">Password</label>
+            <label>Password</label>
             <input
               type="password"
               placeholder="Password"
@@ -66,9 +70,16 @@ function LoginEmployee() {
               value={formData.password}
               onChange={handleChange}
               required
+              disabled={loading}
             />
 
-            <button type="submit" className="login-btn">Login</button>
+            <button
+              type="submit"
+              className="login-btn"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
           </form>
 
           <div className="login-footer">
@@ -79,14 +90,11 @@ function LoginEmployee() {
         <button
           className="login-box-btn"
           onClick={() => navigate("/login-admin")}
+          disabled={loading}
         >
           Login As Administrator
         </button>
       </div>
-
-      {/* <div className="image-panel">
-        <img src="/employeelogin.png" alt="Login Illustration" />
-      </div> */}
     </div>
   );
 }
