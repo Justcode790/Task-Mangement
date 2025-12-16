@@ -52,6 +52,13 @@ function Loginadmin() {
   return (
     <div className="admin-login-page">
       <div className="login-card">
+        <button 
+          className="back-btn"
+          onClick={() => navigate("/")}
+          type="button"
+        >
+          ← Back to Employee Login
+        </button>
         <h3 className="login-heading">Admin Login</h3>
 
         <form onSubmit={handleSubmit} className="login-form">
