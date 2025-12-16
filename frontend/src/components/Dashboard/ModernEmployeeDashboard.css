@@ -1,0 +1,129 @@
+/* Modern Employee Dashboard Container */
+.modern-employee-dashboard {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #16213e;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  margin-left: 250px; /* Account for fixed sidebar width */
+  width: calc(100vw - 250px);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #16213e;
+  position: relative;
+}
+
+/* Smooth scrolling for main content */
+.main-content {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for main content */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 200px; /* Adjust for smaller sidebar */
+    width: calc(100vw - 200px);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 60px; /* Adjust for collapsed sidebar */
+    width: calc(100vw - 60px);
+  }
+  
+  /* When sidebar is hovered on mobile, adjust content */
+  .modern-employee-dashboard:hover .main-content {
+    margin-left: 200px;
+    width: calc(100vw - 200px);
+  }
+}
+
+/* Ensure content doesn't get cut off */
+@media (max-width: 320px) {
+  .main-content {
+    margin-left: 0;
+    width: 100vw;
+    padding-left: 60px;
+  }
+}
+
+/* Loading state for content transitions */
+.main-content.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Fade in animation for content changes */
+.main-content > * {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus management for accessibility */
+.main-content:focus {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modern-employee-dashboard {
+    background: #000000;
+  }
+  
+  .main-content {
+    background: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .main-content {
+    scroll-behavior: auto;
+  }
+  
+  .main-content > * {
+    animation: none;
+  }
+  
+  .main-content::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import AdminRoutes from './components/Routes/AdminRoutes'
 import EmployeeRoutes from './components/Routes/EmployeeRoutes'

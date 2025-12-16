@@ -13,7 +13,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.verifyJWT = (req,res,next)=>{
     const authHeader = req.headers.authorization;
-    console.log("Auth header:", authHeader);
+    // console.log("Auth header:", authHeader);
 
     if(!authHeader || !authHeader.startsWith("Bearer")){
         console.log("No token provided or invalid format");

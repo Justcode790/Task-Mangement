@@ -39,24 +39,31 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password,role } = req.body;
-    console.log(password);
-    let user;
-    if (role === "admin") {
-      user = await User.findOne({ email });
-    } else if (role === "employee") {
-      user = await Employee.findOne({ email });
-    } else {
-      return res.status(400).json({ message: "Invalid role" });
-    }
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+      const { email, password, role } = req.body;
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+      let user;
+
+      if (role === "admin") {
+        user = await User.findOne({ email });
+      }else if (role === "employee") {
+        user = await Employee.findOne({ email });
+      }else {
+        return res.status(400).json({ message: "Invalid role" });
+      }
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // 🔥 IMPORTANT ROLE VERIFICATION
+      if (user.role !== role) {
+        return res.status(403).json({ message: "Role mismatch" });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
 
     const token = jwt.sign(
       { id: user._id, role: user.role, email: user.email },

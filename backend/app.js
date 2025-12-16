@@ -8,6 +8,7 @@ const User = require("./models/user");
 const Employee = require("./models/employee");
 const AuthRoute = require("./routes/auth");
 const {isLoggedIn,verifyJWT} = require("./middleware");
+const task = require("./models/task");
 
 // const {isLoggedIn,verifyJWT} = require("./middleware");
 
@@ -79,6 +80,7 @@ app.get("/tm/admin/task",async(req,res)=>{
 app.get("/tm/selectEmployee",async(req,res)=>{
     try {
         const employees = await Employee.find({});
+        console.log("from selectEmployee: ",employees);
         res.json(employees);
     } catch (error) {
         res.status(500).json({message:"Unable to fetch employees"});
@@ -104,12 +106,12 @@ app.get("/tm/admin/dashboard-stats", verifyJWT, async (req, res) => {
       status: "active",
     });
 
-    console.log(
-      "dashboard stats:",
-      totalProjects,
-      totalUsers,
-      pendingTasks
-    );
+    // console.log(
+    //   "dashboard stats:",
+    //   totalProjects,
+    //   totalUsers,
+    //   pendingTasks
+    // );
 
     res.json({
       totalProjects,
@@ -124,31 +126,47 @@ app.get("/tm/admin/dashboard-stats", verifyJWT, async (req, res) => {
 
 
 
-app.post("/tm/task",verifyJWT,async (req,res)=>{
-    // console.log("User:",req.user);
-    try {
-        const { title, description, assignedTo, dueDate } = req.body;
-        console.log("Request body from post request app.js:", req.body);
-        
-        // Use dueDate if provided, otherwise use current date
-        const taskDate = dueDate ? new Date(dueDate) : new Date();
-        
-        const task = new Task({ 
-            title, 
-            description, 
-            assignedTo, 
-            createdBy: req.user._id,
-            date: taskDate
-        });
-        
-        await task.save();
-        console.log("Task created:", task);
-        res.status(201).json(task);
-    } catch (error) {
-        console.error("Error creating task:", error);
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-})
+app.post("/tm/task", verifyJWT, async (req, res) => {
+  console.log("User from post request /tm/task:", req.user);
+
+  try {
+    const { title, description, assignedTo, dueDate } = req.body;
+
+    const taskDate = dueDate ? new Date(dueDate) : new Date();
+
+    const task = await Task.create({
+      title,
+      description,
+      assignedTo,          
+      createdBy: req.user.id, 
+      date: taskDate,
+    });
+
+    await Employee.findByIdAndUpdate(
+      assignedTo,
+      { $push: { tasks: task._id } }
+    );
+
+    await User.findByIdAndUpdate(
+      req.user.id,
+      { $push: { tasks: task._id } }
+    );
+
+    console.log("Task created and linked:", task);
+
+    res.status(201).json({
+      message: "Task created and assigned successfully",
+      task,
+    });
+  } catch (error) {
+    console.error("Error creating task:", error);
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+});
+
 
 
 app.get("/tm/admin/task/:id",verifyJWT, async (req, res) => {
@@ -200,11 +218,6 @@ app.get("/tm/task/notification", isLoggedIn, async (req, res) => {
 });
 
 
-
-
-
-
-
 app.put("/tm/admin/task/:id",verifyJWT,async (req,res)=>{
     try{
         const {id} = req.params;
@@ -238,8 +251,115 @@ app.get("/tm/task",verifyJWT,async (req,res)=>{
 
 
 
+// get("/dashboard", verifyJWT, async (req, res) => {
+//   try {
+//     const employeeId = req.user.id;
+
+//     const activeTasks = await Task.find({
+//       assignedTo: employeeId,
+//       status: "active",
+//     });
+
+//     const completedTasks = await Task.find({
+//       assignedTo: employeeId,
+//       status: "completed",
+//     });
+
+//     res.json({
+//       activeTasks,
+//       completedTasks,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ message: "Failed to load dashboard" });
+//   }
+// });
+
+app.get("/tm/employee/task/active", verifyJWT, async (req, res) => {
+  // console.log(req.user)
+  console.log("Employee token id:", req.user.id);
+  if (req.user.role !== "employee") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  try {
+    const employee = await Employee.findById(req.user.id)
+      .populate({
+        path: "tasks",
+        match: { status: "active" },
+        populate: {
+          path: "createdBy",
+          select: "name email", 
+        },
+      });
+
+// console.log(employee.tasks);
+    res.json(employee.tasks);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch active tasks" });
+  }
+});
+
+app.get("/tm/employee/task/completed", verifyJWT, async (req, res) => {
+  try {
+    const tasks = await Task.find({
+      assignedTo: req.user.id,
+      status: "completed",
+    }).sort({ date: -1 });
+
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch completed tasks" });
+  }
+});
 
 
+app.get("/tm/employee/task/notification", verifyJWT, async (req, res) => {
+  if (req.user.role !== "employee") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  try {
+    const notifications = await Task.find({
+      assignedTo: req.user.id,     
+      createdBy: { $exists: true },
+      isRead: false,               
+      status: "active",
+    })
+      .populate("createdBy", "name email")
+      .sort({ date: -1 })
+      .limit(5);
+
+    res.json(notifications);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch notifications" });
+  }
+});
+
+
+app.put("/tm/employee/task/read/:id", verifyJWT, async (req, res) => {
+  if (req.user.role !== "employee") {
+    return res.status(403).json({ message: "Access denied" });
+  }
+
+  try {
+    const task = await Task.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        assignedTo: req.user.id, // safety check
+      },
+      { isRead: true },
+      { new: true }
+    );
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.json({ message: "Notification marked as read" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to mark notification as read" });
+  }
+});
 
 
 app.get("/tm/admin/task/:id/update",isLoggedIn, async (req, res) => {

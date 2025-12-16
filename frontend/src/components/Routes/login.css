@@ -15,7 +15,7 @@
 
 .image-panel {
   /* width: 50%; */
-  background-color: #f0f4ff;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,7 @@
   align-items: center;
   flex-direction: column;
  border-radius: 10px;
-  background: #ffffff;
+  background: transparent;
   padding: 20px;
 }
 

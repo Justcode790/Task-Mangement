@@ -6,13 +6,13 @@ import { useUser } from "../../context/UserContext";
 
 function LoginEmployee() {
   const [formData, setFormData] = useState({
-    email: "anshu@gmail.com",
-    password: "123",
+    email: "pooja04@gmail.com",
+    password: "123456",
     role: "employee",
   });
 
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { setUser, setToken } = useUser();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,14 +20,16 @@ function LoginEmployee() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    localStorage.clear();
     try {
       const res = await api.post("/auth/login", formData);
       const { token, user } = res.data;
 
-      // Save user + token in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
+      setToken(token);
 
       // Clear form
       setFormData({ email: "", password: "" });

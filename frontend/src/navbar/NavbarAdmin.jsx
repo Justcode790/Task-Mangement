@@ -40,7 +40,19 @@ function NavbarAdmin() {
                     <p>Project Manager</p>
                 </div>
             </div> */}
-              <button className="logout-btn" onClick={handleLogout}>Logout</button>
+              <button className="logout-btn" style={{
+                marginBottom: "70px",
+                width:"110px",
+  padding: "10px 20px",
+  backgroundColor: "#d9534f",
+  border: "none",
+  borderRadius: "5px",
+  color: "white",
+  fontSize: "0.9rem",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease",
+  textAlign:"center"
+              }} onClick={handleLogout}>Logout</button>
        
     </div>
   )
